@@ -1,27 +1,21 @@
-import { type JSX } from "react";
+import React from "react";
 
 export function Card({
-  className,
   title,
   children,
-  href,
 }: {
-  className?: string;
   title: string;
-  children: React.ReactNode;
-  href: string;
-}): JSX.Element {
+  children?: React.ReactNode;
+}) {
   return (
-    <a
-      className={className}
-      href={`${href}?utm_source=create-turbo&utm_medium=basic&utm_campaign=create-turbo"`}
-      rel="noopener noreferrer"
-      target="_blank"
-    >
-      <h2>
-        {title} <span>-&gt;</span>
-      </h2>
-      <p>{children}</p>
-    </a>
+    // ✅ Added bg-white and rounded-xl to make it visible against the background
+    <div className="border p-6 bg-white rounded-xl shadow-sm">
+      <h1 className="text-xl border-b pb-4 font-semibold text-slate-800">
+        {title}
+      </h1>
+      <div className="pt-4"> 
+        {children}
+      </div>
+    </div>
   );
 }
