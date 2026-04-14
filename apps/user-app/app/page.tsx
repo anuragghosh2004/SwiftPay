@@ -1,3 +1,5 @@
+
+
 import { getServerSession } from "next-auth";
 import { redirect } from 'next/navigation'
 import { auth_Options } from "./lib/auth";
@@ -9,5 +11,5 @@ export default async function Page() {
   } else {
     redirect('/api/auth/signin')
   }
-  
+
 }
