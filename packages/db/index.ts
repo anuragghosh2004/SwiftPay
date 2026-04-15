@@ -1,22 +1,24 @@
-export  * from "@prisma/adapter-pg";
-export * from "@prisma/client";
-export * from "pg"
-
- import { Pool } from "pg";
+import { Pool } from "pg";
 import { PrismaPg } from "@prisma/adapter-pg";
 import { PrismaClient } from "@prisma/client";
-import * as dotenv from "dotenv";   
+import * as dotenv from "dotenv";
+
+// Explicitly export ONLY what you need
+export * from "@prisma/client";
+export * from "@prisma/adapter-pg";
+
 dotenv.config({ path: "../../.env" });
+
+// Setup the safe fallback string for your CI/CD workflow
 const connectionString = process.env.DATABASE_URL || "postgresql://dummy:dummy@localhost:5432/postgres";
 
 if (!process.env.DATABASE_URL) {
-  console.warn("DATABASE_URL is missing! Make sure your .env file is loaded. Using a dummy connection string for now.");
+  console.warn("DATABASE_URL is missing! Using a dummy connection string for the build.");
 }
 
-// Initialize everything INSIDE the package
+// Initialize the pool
 const pool = new Pool({
-    // Make sure your root .env file has this exact variable
-    connectionString: connectionString
+  connectionString: connectionString
 });
 
 const adapter = new PrismaPg(pool as any);
