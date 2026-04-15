@@ -1,0 +1,25 @@
+# Use a specific version, not just "node", to prevent unexpected breaking changes
+FROM node:20
+
+WORKDIR /app
+
+# 1. ONLY copy the configuration files first (Protects the cache!)
+COPY package*.json ./
+# In a monorepo, you must copy the Prisma folder before generating
+COPY packages/db/prisma ./packages/db/prisma 
+
+# 2. Install dependencies
+RUN npm install 
+
+# 3. Generate the Prisma Client
+# Point it directly to your schema so it doesn't get lost in the monorepo
+RUN npx prisma generate --schema=./packages/db/prisma/schema.prisma
+
+# 4. NOW copy the rest of your actual application code
+COPY . .
+
+# 5. Build the applications (Turborepo/Next.js)
+RUN npm run build
+
+# 6. Start the app
+CMD ["npm", "run", "start-user-app"]
