@@ -1,9 +1,6 @@
 export * from "@prisma/adapter-pg";
 export * from "@prisma/client";
 export * from "pg"
-
-
-
 import { Pool } from "pg";
 import { PrismaPg } from "@prisma/adapter-pg";
 import { PrismaClient } from "@prisma/client";
