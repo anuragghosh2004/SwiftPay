@@ -10,7 +10,7 @@ export * from "@prisma/adapter-pg";
 dotenv.config({ path: "../../.env" });
 
 // 2. Setup the safe fallback string
-const connectionString = process.env.DATABASE_URL || "postgresql://dummy:dummy@localhost:5432/postgres";
+const connectionString = process.env.DATABASE_URL
 
 if (!process.env.DATABASE_URL) {
   console.warn("DATABASE_URL is missing! Using a dummy connection string for now.");
