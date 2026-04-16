@@ -20,7 +20,7 @@ COPY packages/typescript-config/package.json ./packages/typescript-config/
 COPY packages/eslint-config/package.json ./packages/eslint-config/
 
 # 4. Install ALL dependencies (Root + Workspaces)
-RUN npm install 
+RUN npm install --include=dev
 
 # 5. Generate the Prisma Client
 RUN npx prisma generate --schema=./packages/db/prisma/schema.prisma
