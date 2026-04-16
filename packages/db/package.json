@@ -23,7 +23,8 @@
   },
   "exports":{
     "./client":"./index.ts"
-    
+  },
+  "prisma": {
+    "seed": "npx tsx prisma/seed.ts"
   }
-   
 }
