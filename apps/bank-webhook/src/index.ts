@@ -1,8 +1,8 @@
-import express from "express";
+
 import { PrismaClient } from "@prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
 import { Pool } from "pg";
-
+import express, { Request, Response } from "express";
 import * as dotenv from "dotenv";
 import * as path from "path";
 
@@ -24,7 +24,7 @@ const client = new PrismaClient({ adapter } as any);
 const app = express();
 app.use(express.json());
 
-app.post("/webhook", async (req, res) => {
+app.post("/webhook", async (req: Request, res: Response) => {
     console.log("What Express parsed:", req.body);
 
 
@@ -36,8 +36,8 @@ app.post("/webhook", async (req, res) => {
 
     const paymentInformation = {
         token: req.body.token,
-        userId: req.body.user_identifier,
-        amount: req.body.amount
+        userId: Number(req.body.user_identifier),
+        amount: Number(req.body.amount)
     };
 
     try {
