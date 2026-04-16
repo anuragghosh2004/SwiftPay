@@ -11,9 +11,9 @@ dotenv.config({ path: "../../.env" });
 
 // Setup the safe fallback string for your CI/CD workflow
 const connectionString = process.env.DATABASE_URL || "postgresql://dummy:dummy@localhost:5432/postgres";
-
+console.log(connectionString);
 if (!process.env.DATABASE_URL) {
-  console.warn("DATABASE_URL is missing! Using a dummy connection string for the build.");
+  console.warn("DATABASE_URL is missing! Using a dummy connection string for the build.");
 }
 
 // Initialize the pool
