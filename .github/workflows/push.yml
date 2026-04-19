@@ -31,3 +31,23 @@ jobs:
 
     - name: Verify Pushed Image
       run: docker pull anuragghosh/testcicd:latest
+
+  deploy:
+    needs: build-and-push # Waits for the build job to finish successfully
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            
+            cd ~/paytm-app
+            
+            
+            sudo docker-compose pull user-app
+            
+            
+            sudo docker-compose up -d
